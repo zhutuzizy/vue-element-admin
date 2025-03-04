@@ -3,12 +3,12 @@
     <el-card v-for="item in newList" :key="item.wordID" class="word-card">
       <div>
         <span class="word">{{ item.wordContent }}</span>
-        <span class="fayin" v-if="item.phonetic_US !== 'nullTag'">{{ item.phonetic_US }}</span>
+        <span v-if="item.phonetic_US !== 'nullTag'" class="fayin">{{ item.phonetic_US }}</span>
       </div>
-      <div class="translate">{{item.translation}}</div>
+      <div class="translate">{{ item.translation }}</div>
       <!-- <el-divider></el-divider> -->
-      <div class="divider"></div>
-      <div v-if="item.exampleSentences !== 'nullTag'" class="sentence" v-html="item.exampleSentences"></div>
+      <div class="divider" />
+      <div v-if="item.exampleSentences !== 'nullTag'" class="sentence" v-html="item.exampleSentences" />
       <div v-if="type == 'noRecite' || type == 'all'" class="action">
         <el-button icon="el-icon-plus" size="mini" @click="toKnow(item)">熟悉</el-button>
         <el-button type="success" icon="el-icon-plus" size="mini" @click="toGrasp(item)">掌握</el-button>

@@ -80,7 +80,7 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/word/index',
+    redirect: '/word/index'
     // children: [
     //   {
     //     path: 'dashboard',
