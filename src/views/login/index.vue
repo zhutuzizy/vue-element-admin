@@ -3,7 +3,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h3 class="title">基于个性化推荐的英语四六级学习平台</h3>
       </div>
 
       <el-form-item prop="username">
@@ -45,9 +45,11 @@
         </el-form-item>
       </el-tooltip>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
 
-      <div style="position:relative">
+      <el-button :loading="loading" type="text" style="width:100%;margin-bottom:30px;text-align:right;" @click.native.prevent="handleRegister">去注册</el-button>
+
+      <!-- <div style="position:relative">
         <div class="tips">
           <span>Username : admin</span>
           <span>Password : any</span>
@@ -60,7 +62,7 @@
         <el-button class="thirdparty-button" type="primary" @click="showDialog=true">
           Or connect with
         </el-button>
-      </div>
+      </div> -->
     </el-form>
 
     <el-dialog title="Or connect with" :visible.sync="showDialog">
@@ -97,7 +99,7 @@ export default {
     }
     return {
       loginForm: {
-        username: 'admin',
+        username: 'admin', // editor
         password: '111111'
       },
       loginRules: {
@@ -152,13 +154,16 @@ export default {
         this.$refs.password.focus()
       })
     },
+    handleRegister() {
+      this.$router.push(`/register`)
+    },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm)
             .then(() => {
-              this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
+              this.$router.push({ path: this.redirect || '/word/index', query: this.otherQuery })
               this.loading = false
             })
             .catch(() => {

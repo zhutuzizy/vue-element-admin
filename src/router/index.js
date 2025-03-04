@@ -11,6 +11,7 @@ import componentsRouter from './modules/components'
 import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
 import nestedRouter from './modules/nested'
+import englishRouter from './modules/english'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -56,6 +57,11 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/register',
+    component: () => import('@/views/register/index'),
+    hidden: true
+  },
+  {
     path: '/auth-redirect',
     component: () => import('@/views/login/auth-redirect'),
     hidden: true
@@ -70,19 +76,22 @@ export const constantRoutes = [
     component: () => import('@/views/error-page/401'),
     hidden: true
   },
+  ...englishRouter,
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
-    children: [
-      {
-        path: 'dashboard',
-        component: () => import('@/views/dashboard/index'),
-        name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
-      }
-    ]
-  },
+    redirect: '/word/index',
+    // children: [
+    //   {
+    //     path: 'dashboard',
+    //     component: () => import('@/views/dashboard/index'),
+    //     name: 'Dashboard',
+    //     hidden: true,
+    //     meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+    //   }
+    // ]
+  }
+/**
   {
     path: '/documentation',
     component: Layout,
@@ -122,6 +131,7 @@ export const constantRoutes = [
       }
     ]
   }
+*/
 ]
 
 /**
@@ -129,6 +139,7 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
+/**
   {
     path: '/permission',
     component: Layout,
@@ -183,13 +194,14 @@ export const asyncRoutes = [
       }
     ]
   },
+*/
 
   /** when your routing map is too long, you can split it into small modules **/
-  componentsRouter,
-  chartsRouter,
-  nestedRouter,
-  tableRouter,
-
+  // componentsRouter,
+  // chartsRouter,
+  // nestedRouter,
+  // tableRouter,
+  /**
   {
     path: '/example',
     component: Layout,
@@ -382,6 +394,7 @@ export const asyncRoutes = [
       }
     ]
   },
+*/
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

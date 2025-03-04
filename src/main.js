@@ -20,6 +20,12 @@ import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
 
+// main.js
+// markdown样式
+import 'github-markdown-css'
+// 代码高亮
+import 'highlight.js/styles/github.css'
+
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api

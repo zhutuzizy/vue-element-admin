@@ -1,17 +1,17 @@
 module.exports = {
-  title: 'Vue Element Admin',
+  title: '基于个性化推荐的英语四六级学习平台',
 
   /**
    * @type {boolean} true | false
    * @description Whether show the settings right-panel
    */
-  showSettings: true,
+  showSettings: false,
 
   /**
    * @type {boolean} true | false
    * @description Whether need tagsView
    */
-  tagsView: true,
+  tagsView: false,
 
   /**
    * @type {boolean} true | false

@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      title: 'Vue Element Admin',
+      title: '基于个性化推荐的英语四六级学习平台',
       logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
     }
   }
