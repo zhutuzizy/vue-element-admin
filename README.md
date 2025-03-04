@@ -40,7 +40,7 @@ English | [简体中文](./README.zh-CN.md) | [日本語](./README.ja.md) | [Spa
         </a>
       </td>
     </tr>
-  </tbody> 
+  </tbody>
 </table>-->
 
 ## Introduction
@@ -241,3 +241,4 @@ Modern browsers and Internet Explorer 10+.
 [MIT](https://github.com/PanJiaChen/vue-element-admin/blob/master/LICENSE)
 
 Copyright (c) 2017-present PanJiaChen
+
