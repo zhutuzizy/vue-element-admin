@@ -100,11 +100,11 @@ export const fileMap = [
   //   importance: 1,
   //   status: 'noStart',
   // },
-  {
-    title: '不定式（短语）作主语、表语、宾语、补足语',
-    importance: 1,
-    status: 'noStart'
-  },
+  // {
+  //   title: '不定式（短语）作主语、表语、宾语、补足语',
+  //   importance: 1,
+  //   status: 'noStart'
+  // },
   // {
   //   title: '不定式的时态、复合结构及省略',
   //   importance: 1,
@@ -172,15 +172,18 @@ export const fileMap = [
     title: '基数词和序数词',
     importance: 1,
     status: 'noStart'
-  }, {
-    title: '介词的种类、短语及搭配',
-    importance: 1,
-    status: 'noStart'
-  }, {
-    title: '零冠词',
-    importance: 1,
-    status: 'noStart'
-  }, {
+  },
+  // {
+  //   title: '介词的种类、短语及搭配',
+  //   importance: 1,
+  //   status: 'noStart'
+  // },
+  // {
+  //   title: '零冠词',
+  //   importance: 1,
+  //   status: 'noStart'
+  // },
+  {
     title: '名词的格',
     importance: 1,
     status: 'noStart'
@@ -214,11 +217,13 @@ export const fileMap = [
     title: '省略',
     importance: 1,
     status: 'noStart'
-  }, {
-    title: '时间、货币和编码',
-    importance: 1,
-    status: 'noStart'
-  }, {
+  },
+  // {
+  //   title: '时间、货币和编码',
+  //   importance: 1,
+  //   status: 'noStart'
+  // },
+  {
     title: '现在分词的结构和时态',
     importance: 1,
     status: 'noStart'
@@ -226,44 +231,48 @@ export const fileMap = [
     title: '现在分词在句子中的成分',
     importance: 1,
     status: 'noStart'
-  }, {
-    title: '小数、分数、百分数',
-    importance: 1,
-    status: 'noStart'
-  }, {
-    title: '形容词的功用',
-    importance: 1,
-    status: 'noStart'
-  }, {
-    title: '形容词和副词的比较级',
-    importance: 1,
-    status: 'noStart'
-  }, {
-    title: '虚拟语气在从句中的用法',
-    importance: 1,
-    status: 'noStart'
-  }, {
-    title: '一致关系',
-    importance: 1,
-    status: 'noStart'
-  }, {
-    title: '疑问代词和关系代词',
-    importance: 1,
-    status: 'noStart'
-  }, {
-    title: '在非真实条件句中的用法',
-    importance: 1,
-    status: 'noStart'
-  }, {
-    title: '助动词',
-    importance: 1,
-    status: 'noStart'
-  }, , {
-    title: '状语从句(1)',
-    importance: 1,
-    status: 'noStart'
-  }, {
-    title: '状语从句(2)',
-    importance: 1,
-    status: 'noStart'
-  }]
+  }
+  // {
+  //   title: '小数、分数、百分数',
+  //   importance: 1,
+  //   status: 'noStart'
+  // },
+  // {
+  //   title: '形容词的功用',
+  //   importance: 1,
+  //   status: 'noStart'
+  // }, {
+  //   title: '形容词和副词的比较级',
+  //   importance: 1,
+  //   status: 'noStart'
+  // }, {
+  //   title: '虚拟语气在从句中的用法',
+  //   importance: 1,
+  //   status: 'noStart'
+  // }, {
+  //   title: '一致关系',
+  //   importance: 1,
+  //   status: 'noStart'
+  // }, {
+  //   title: '疑问代词和关系代词',
+  //   importance: 1,
+  //   status: 'noStart'
+  // }, {
+  //   title: '在非真实条件句中的用法',
+  //   importance: 1,
+  //   status: 'noStart'
+  // }, {
+  //   title: '助动词',
+  //   importance: 1,
+  //   status: 'noStart'
+  // },
+  // {
+  //   title: '状语从句(1)',
+  //   importance: 1,
+  //   status: 'noStart'
+  // }, {
+  //   title: '状语从句(2)',
+  //   importance: 1,
+  //   status: 'noStart'
+  // }
+]
