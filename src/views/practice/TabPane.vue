@@ -6,7 +6,7 @@
       </div>
       <!-- <pre class="text-container"></pre> -->
       <!-- <iframe :src="item.path" width="100%" height="600px"></iframe> -->
-      <pdf :src="item.path" ></pdf>
+      <pdf :src="item.path" />
     </el-card>
 
     <div v-if="total" class="page">
@@ -60,7 +60,7 @@ export default {
       newList: [],
       currentPage: 1,
       loading: false,
-      pageSize: 1,
+      pageSize: 1
       // pathsss: require('/pdf/2022.06六级真题第1套.pdf')
     }
   },

@@ -15,7 +15,7 @@ export default {
   components: { TabPane },
   data() {
     return {
-      allList: [],
+      allList: []
     }
   },
   watch: {

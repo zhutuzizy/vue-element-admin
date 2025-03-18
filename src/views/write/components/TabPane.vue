@@ -2,11 +2,11 @@
   <div class="all">
     <el-card v-for="item in newList" :key="item.key" class="word-card " :body-style="{ height: '300px', overflow: 'auto' }" shadow="hover">
       <div slot="header" class="header">
-        <pre class="text-container" v-html="item.Directions"></pre>
+        <pre class="text-container" v-html="item.Directions" />
       </div>
-      <pre class="text-container" v-html="item.file"></pre>
+      <pre class="text-container" v-html="item.file" />
     </el-card>
-<!-- {
+    <!-- {
   "Directions": "",
   "file": ""
 } -->

@@ -2,10 +2,10 @@
   <div class="all">
     <el-card v-for="item in newList" :key="item.title" class="word-card " :body-style="{ height: '300px', overflow: 'auto' }" shadow="hover">
       <div slot="header" class="header">
-        <pre class="text-container" v-html="item.title"></pre>
+        <pre class="text-container" v-html="item.title" />
       </div>
       <!-- <pre class="text-container"></pre> -->
-      <iframe :src="pathsss" width="100%" height="600px"></iframe>
+      <iframe :src="pathsss" width="100%" height="600px" />
     </el-card>
 
     <div v-if="total" class="page">
