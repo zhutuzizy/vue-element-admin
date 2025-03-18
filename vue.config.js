@@ -25,7 +25,7 @@ module.exports = {
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
   // publicPath: '/',
-  publicPath: process.env.NODE_ENV === 'production' ? './vue-element-admin/' : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/vue-element-admin/' : '/',
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
@@ -37,7 +37,10 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js')
+    before: require('./mock/mock-server.js'),
+    disableHostCheck: true,
+    allowedHosts: ['https://tough-baths-cough.loca.lt'],
+    host: '0.0.0.0'
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
@@ -61,6 +64,17 @@ module.exports = {
         raw: true
       })
 
+    // 添加 file-loader 规则
+    config.module
+      .rule('pdf')
+      .test(/\.pdf$/)
+      .use('file-loader')
+      .loader('file-loader')
+      .options({
+        // name: 'assets/pdf/[name].[hash:8].[ext]' // 文件输出路径和命名规则
+        raw: true
+      })
+      .end()
     // it can improve the speed of the first screen, it is recommended to turn on preload
     // it can improve the speed of the first screen, it is recommended to turn on preload
     config.plugin('preload').tap(() => [

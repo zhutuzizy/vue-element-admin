@@ -116,7 +116,7 @@
           </el-tag> -->
           <div v-if="row.remark" style="">{{ row.remark }}</div>
           <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(row, 'biji')">
-            Edit
+            记下学习心得
           </el-button>
         </template>
       </el-table-column>

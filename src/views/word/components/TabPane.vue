@@ -98,11 +98,11 @@ export default {
       // console.log(`每页 ${val} 条`);
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`)
+      // console.log(`当前页: ${val}`)
       this.newList = this.list.slice((val - 1) * this.pageSize, val * this.pageSize)
     },
     toKnow(item) {
-      console.log(item, 'pppppp')
+      // console.log(item, 'pppppp')
       item.know = true
       this.$emit('learn')
       this.$message('添加至已熟悉列表')

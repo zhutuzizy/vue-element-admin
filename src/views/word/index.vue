@@ -31,7 +31,7 @@ import TabPane from './components/TabPane'
 import result from './CET_Words.json'
 
 export default {
-  name: 'Tab',
+  name: 'Tab22',
   components: { TabPane },
   data() {
     return {
