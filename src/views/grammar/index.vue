@@ -1,9 +1,5 @@
 <template>
   <div class="app-container">
-    <!-- <div class="markdown-body ">
-      <md></md>
-    </div> -->
-
     <div class="filter-container">
       <el-input v-model="listQuery.title" clearable placeholder="语法标题" style="width: 200px;margin-right: 20px;" class="filter-item" />
       <!-- @keyup.enter.native="handleFilter" -->
@@ -16,22 +12,11 @@
         <el-option v-for="item in statusTextOpts" :key="item.key" :label="item.display_name" :value="item.key" />
       </el-select>
 
-      <!-- <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
-        <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
-      </el-select> -->
-
       <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
         Search
       </el-button>
-      <!-- <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
-        Add
-      </el-button>
-      <el-button v-waves :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">
-        Export
-      </el-button>
-      <el-checkbox v-model="showReviewer" class="filter-item" style="margin-left:15px;" @change="tableKey=tableKey+1">
-        reviewer
-      </el-checkbox> -->
+
+      <el-button class="view" type="text" icon="el-icon-link" @click="toViewFile()">更多语法</el-button>
     </div>
 
     <el-table
@@ -49,27 +34,13 @@
           <span>{{ $index + 1 }}</span>
         </template>
       </el-table-column>
-      <!-- <el-table-column label="Date" width="150px" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
-        </template>
-      </el-table-column> -->
+
       <el-table-column label="语法内容" min-width="150px" align="center">
         <template slot-scope="{row}">
           <span class="link-type" @click="handleShowDetail(row)">{{ row.title }}</span>
-          <!-- <el-tag>{{ row.type | typeFilter }}</el-tag> -->
         </template>
       </el-table-column>
-      <!-- <el-table-column label="Author" width="110px" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.author }}</span>
-        </template>
-      </el-table-column> -->
-      <!-- <el-table-column v-if="showReviewer" label="Reviewer" width="110px" align="center">
-        <template slot-scope="{row}">
-          <span style="color:red;">{{ row.reviewer }}</span>
-        </template>
-      </el-table-column> -->
+
       <el-table-column label="重要性" width="100px" align="center">
         <template slot-scope="{row}">
           <div class="link-type" @click="handleUpdate(row, 'importance')">
@@ -77,15 +48,9 @@
           </div>
         </template>
       </el-table-column>
-      <!-- <el-table-column label="Readings" align="center" width="95">
-        <template slot-scope="{row}">
-          <span v-if="row.pageviews" class="link-type" @click="handleFetchPv(row.pageviews)">{{ row.pageviews }}</span>
-          <span v-else>0</span>
-        </template>
-      </el-table-column> -->
 
       <el-table-column label="去学习" align="center" width="300" class-name="small-padding fixed-width">
-        <template slot-scope="{row,$index}">
+        <template slot-scope="{row, $index}">
           <el-button type="primary" size="mini" @click="handleLearn(row, 'start')">
             开始学习
           </el-button>
@@ -111,9 +76,6 @@
 
       <el-table-column label="学习笔记" class-name="status-col" width="150" align="center">
         <template slot-scope="{row}">
-          <!-- <el-tag :type="row.status | statusFilter">
-            {{ row.status | statusTextFilter }}
-          </el-tag> -->
           <div v-if="row.remark" style="">{{ row.remark }}</div>
           <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(row, 'biji')">
             记下学习心得
@@ -122,12 +84,9 @@
       </el-table-column>
     </el-table>
 
-    <!-- <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" /> -->
-
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="90px" style="width: 400px; margin-left:50px;">
         <el-form-item label="语法内容" prop="title">
-          <!-- <el-input v-model="temp.title" /> -->
           <span>{{ temp.title }}</span>
         </el-form-item>
         <el-form-item v-if="temp.dialogType === 'importance'" label="重要性">
@@ -155,9 +114,6 @@
       @close="handleCloseDrawer"
     >
       <div class="markdown-body md-div">
-        <!-- <md />
-        <comObj['aa'] /> -->
-        <!-- <div v-if="currentFile" v-html="comObj[nameMap[currentFile]]" /> -->
         <component :is="nameMap[currentFile]" />
       </div>
     </el-drawer>
@@ -165,10 +121,9 @@
 </template>
 
 <script>
-import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
-import waves from '@/directive/waves' // waves directive
+import { fetchList, fetchPv, createArticle } from '@/api/article'
+import waves from '@/directive/waves'
 import { parseTime } from '@/utils'
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { fileMap, statusMap, statusText, nameMap } from './markdownList'
 
 // import md from './md/IT的用法.md'
@@ -288,14 +243,14 @@ export default {
     this.getList()
   },
   methods: {
+    toViewFile() {
+      const filePath = 'https://oldwestenglish.github.io/grammar/#/'
+      window.open(filePath, '_blank')
+    },
     getList() {
       this.listLoading = true
-      // console.log('--this.listQuery', this.listQuery)
       fetchList(this.listQuery).then(response => {
-        // this.list = response.data.items
-        // this.total = response.data.total
         let newList = fileMap.slice()
-        // importance status title
         if (this.listQuery.importance) {
           newList = newList.filter(i => i.importance === this.listQuery.importance)
         }
@@ -309,9 +264,6 @@ export default {
         }
 
         this.list = newList
-        // this.total = this.list.length
-
-        // Just to simulate the time of the request
         setTimeout(() => {
           this.listLoading = false
         }, 0.5 * 1000)
@@ -365,7 +317,6 @@ export default {
     createData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
           this.temp.author = 'vue-element-admin'
           createArticle(this.temp).then(() => {
             this.list.unshift(this.temp)
@@ -382,7 +333,6 @@ export default {
     },
     handleShowDetail(row) {
       this.dialogDrawerVisible = true
-      // console.log('------', comObj)
       this.currentFile = row.title
     },
     handleCloseDrawer() {
@@ -402,21 +352,18 @@ export default {
       })
     },
     updateData() {
-      // console.log('ppppppp')
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
-          tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
+          tempData.timestamp = +new Date(tempData.timestamp)
           const index = this.list.findIndex(v => v.title === this.temp.title)
 
-          // this.list.splice(index, 1, this.temp)
           if (this.temp.dialogType === 'importance') {
             this.list[index].importance = this.temp.importance
           }
           if (this.temp.dialogType === 'biji') {
             this.list[index].remark = this.temp.remark
             this.list = this.list.slice()
-            // this.list.splice(index, 1, this.temp)
           }
 
           this.dialogFormVisible = false
@@ -426,8 +373,6 @@ export default {
             type: 'success',
             duration: 2000
           })
-          // updateArticle(tempData).then(() => {
-          // })
         }
       })
     },
@@ -479,9 +424,11 @@ export default {
 
 <style lang="scss" scoped>
   .md-div {
-    // width: 600px;
     height: calc(100vh - 45px);
     overflow: auto;
     padding: 25px;
+  }
+  .view {
+    float: right;
   }
 </style>

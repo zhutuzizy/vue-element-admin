@@ -15,15 +15,12 @@ const filePdfArr = []
 components.keys().forEach(fileName => {
   // 获取文件名
   const names = fileName.split('/').pop().replace(/.\w+$/, '')
-  console.log('---names---', names)
   const obj = {
     title: names,
     path: require(`./file/${names}.pdf`).default
   }
   filePdfArr.push(obj)
 })
-
-console.log('---filePdfArr---', filePdfArr)
 
 import TabPane from './TabPane'
 
@@ -56,7 +53,7 @@ export default {
 
 <style scoped>
   .tab-container {
-    height: calc(100vh - 110px);
+    height: calc(100vh - 80px);
     margin: 20px;
     overflow: auto;
   }

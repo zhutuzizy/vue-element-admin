@@ -1,36 +1,11 @@
 <template>
   <div class="app-container">
-    <!-- <div class="markdown-body ">
-      <md></md>
-    </div> -->
-
     <div class="filter-container">
       <el-input v-model="listQuery.title" clearable placeholder="听力标题" style="width: 300px;margin-right: 20px;" class="filter-item" />
-
-      <!-- <el-select v-model="listQuery.importance" placeholder="重要性" clearable style="width: 150px;margin-right: 20px;" class="filter-item">
-        <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
-      </el-select>
-
-      <el-select v-model="listQuery.status" placeholder="学习进度" clearable class="filter-item" style="width: 150px;margin-right: 20px;">
-        <el-option v-for="item in statusTextOpts" :key="item.key" :label="item.display_name" :value="item.key" />
-      </el-select> -->
-
-      <!-- <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
-        <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
-      </el-select> -->
 
       <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
         Search
       </el-button>
-      <!-- <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
-        Add
-      </el-button>
-      <el-button v-waves :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">
-        Export
-      </el-button>
-      <el-checkbox v-model="showReviewer" class="filter-item" style="margin-left:15px;" @change="tableKey=tableKey+1">
-        reviewer
-      </el-checkbox> -->
     </div>
 
     <el-table
@@ -43,93 +18,25 @@
       style="width: 100%;"
       @sort-change="sortChange"
     >
-      <el-table-column label="ID" prop="id" align="center" width="80">
+      <el-table-column label="ID" prop="id" align="center" width="100">
         <template slot-scope="{row, $index}">
           <span>{{ $index + 1 }}</span>
         </template>
       </el-table-column>
-      <!-- <el-table-column label="Date" width="150px" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
-        </template>
-      </el-table-column> -->
-      <el-table-column label="听力标题" width="250px" align="center">
+
+      <el-table-column label="听力标题" align="center">
         <template slot-scope="{row}">
           <span class="link-type">{{ row.title }}</span>
-          <!-- <el-tag>{{ row.type | typeFilter }}</el-tag> -->
         </template>
       </el-table-column>
-      <el-table-column label="听力等级" width="100px" align="center">
+      <el-table-column label="听力等级" width="150px" align="center">
         <template slot-scope="{row}">
           <el-tag>{{ row.title | jibieFilter }}</el-tag>
         </template>
       </el-table-column>
-      <!-- <el-table-column label="Author" width="110px" align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.author }}</span>
-        </template>
-      </el-table-column> -->
-      <!-- <el-table-column v-if="showReviewer" label="Reviewer" width="110px" align="center">
-        <template slot-scope="{row}">
-          <span style="color:red;">{{ row.reviewer }}</span>
-        </template>
-      </el-table-column> -->
 
-      <!-- <el-table-column label="重要性" width="100px">
+      <el-table-column label="听力内容" align="center" class-name="status-col" width="400px">
         <template slot-scope="{row}">
-          <div class="link-type" @click="handleUpdate(row, 'importance')">
-            <svg-icon v-for="n in + row.importance" :key="n" icon-class="star" class="meta-item__icon" />
-          </div>
-        </template>
-      </el-table-column> -->
-
-      <!-- <el-table-column label="Readings" align="center" width="95">
-        <template slot-scope="{row}">
-          <span v-if="row.pageviews" class="link-type" @click="handleFetchPv(row.pageviews)">{{ row.pageviews }}</span>
-          <span v-else>0</span>
-        </template>
-      </el-table-column> -->
-
-      <!-- <el-table-column label="去学习" align="center" width="300" class-name="small-padding fixed-width">
-        <template slot-scope="{row,$index}">
-          <el-button type="primary" size="mini" @click="handleLearn(row, 'start')">
-            开始学习
-          </el-button>
-          <el-button type="warning" size="mini" @click="handleLearn(row, 'noUnderstand')">
-            不理解
-          </el-button>
-          <el-button size="mini" type="danger" @click="handleLearn(row, 'noKnow')">
-            不知道
-          </el-button>
-          <el-button size="mini" type="success" @click="handleLearn(row, 'finish')">
-            掌握啦
-          </el-button>
-        </template>
-      </el-table-column> -->
-
-      <!-- <el-table-column label="学习进度" class-name="status-col" width="150">
-        <template slot-scope="{row}">
-          <el-tag :type="row.status | statusFilter">
-            {{ row.status | statusTextFilter }}
-          </el-tag>
-        </template>
-      </el-table-column> -->
-
-      <!-- <el-table-column label="学习笔记" class-name="status-col" width="150">
-        <template slot-scope="{row}">
-          <div v-if="row.remark" style="">{{row.remark}}</div>
-          <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(row, 'biji')">
-            Edit
-          </el-button>
-        </template>
-      </el-table-column> -->
-
-      <el-table-column label="听力内容" align="center" class-name="status-col">
-        <template slot-scope="{row}">
-          <!-- <div v-if="row.remark" style="">{{row.remark}}</div>
-          <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(row, 'biji')">
-            Edit
-          </el-button> -->
           <audio controls>
             <source :src="row.path" type="audio/mpeg">
             您的浏览器不支持音频播放。
@@ -137,59 +44,25 @@
         </template>
       </el-table-column>
 
+      <el-table-column label="操作" align="center" width="100" class-name="small-padding">
+        <template slot-scope="{row, $index}">
+          <el-button type="primary" size="mini" @click="handleLearn(row, 'start')">
+            下载
+          </el-button>
+        </template>
+      </el-table-column>
     </el-table>
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
-
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="90px" style="width: 400px; margin-left:50px;">
-        <el-form-item label="语法内容" prop="title">
-          <!-- <el-input v-model="temp.title" /> -->
-          <span>{{ temp.title }}</span>
-        </el-form-item>
-        <el-form-item v-if="temp.dialogType === 'importance'" label="重要性">
-          <el-rate v-model="temp.importance" :colors="['#99A9BF', '#F7BA2A', '#FF9900']" :max="5" style="margin-top:8px;" />
-        </el-form-item>
-        <el-form-item v-if="temp.dialogType === 'biji'" label="笔记">
-          <el-input v-model="temp.remark" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="Please input" />
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">
-          Cancel
-        </el-button>
-        <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">
-          Confirm
-        </el-button>
-      </div>
-    </el-dialog>
-
-    <!-- <el-drawer
-      title="语法内容"
-      :visible.sync="dialogDrawerVisible"
-      :with-header="true"
-      size="45%"
-      @close="handleCloseDrawer"
-    >
-      <div class="markdown-body md-div">
-        <component :is="nameMap[currentFile]" />
-      </div>
-    </el-drawer> -->
   </div>
 </template>
 
 <script>
-import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
+import { fetchList, fetchPv } from '@/api/article'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { fileMap, statusMap, statusText, nameMap } from './markdownList'
-
-// import md from './md/IT的用法.md'
-// fileMap.forEach(i => {
-//   const title = i.title
-//   import [title] from `./md/${title}.md`
-// })
+import Pagination from '@/components/Pagination'
+import { statusMap, statusText, nameMap } from './markdownList'
 
 const calendarTypeOptions = [
   { key: 'CN', display_name: 'China' },
@@ -219,7 +92,6 @@ const components = require.context(
   true, // 是否查询其子目录
   /\.mp3$/ // 匹配基础组件文件名的正则表达式
 )
-
 const namesMP3 = []
 const comObj = {}
 components.keys().forEach(fileName => {
@@ -230,11 +102,6 @@ components.keys().forEach(fileName => {
     path: require(`./md/${names}.mp3`)
   }
   namesMP3.push(obj)
-  // 获取组件配置
-  // const comp = components(fileName)
-  // 若该组件是通过"export default"导出的，优先使用".default"，否则退回到使用模块的根
-  // console.log('--', names)
-  // comObj[nameMap[names]] = comp.default || comp
 })
 
 export default {
@@ -257,7 +124,6 @@ export default {
   },
   data() {
     return {
-      // audioUrl: require('./md/1.mp3'),
       namesMP3,
       nameMap,
       currentFile: '',
@@ -316,13 +182,8 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      // console.log('--this.listQuery', this.listQuery)
       fetchList(this.listQuery).then(response => {
-        // this.list = response.data.items
-        // this.total = response.data.total
-
         let newList = namesMP3.slice()
-        // importance status title 分页
         if (this.listQuery.importance) {
           newList = newList.filter(i => i.importance === this.listQuery.importance)
         }
@@ -338,9 +199,7 @@ export default {
 
         // 分页
         this.namesMP3 = newList.slice((this.listQuery.page - 1) * this.listQuery.limit, this.listQuery.page * this.listQuery.limit)
-        // this.namesMP3 = newList
 
-        // Just to simulate the time of the request
         setTimeout(() => {
           this.listLoading = false
         }, 0.5 * 1000)
@@ -383,35 +242,8 @@ export default {
         dialogType: ''
       }
     },
-    handleCreate() {
-      this.resetTemp()
-      this.dialogStatus = 'create'
-      this.dialogFormVisible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
-      })
-    },
-    createData() {
-      this.$refs['dataForm'].validate((valid) => {
-        if (valid) {
-          this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
-          this.temp.author = 'vue-element-admin'
-          createArticle(this.temp).then(() => {
-            this.list.unshift(this.temp)
-            this.dialogFormVisible = false
-            this.$notify({
-              title: 'Success',
-              message: 'Created Successfully',
-              type: 'success',
-              duration: 2000
-            })
-          })
-        }
-      })
-    },
     handleShowDetail(row) {
       this.dialogDrawerVisible = true
-      // console.log('------', comObj)
       this.currentFile = row.title
     },
     handleCloseDrawer() {
@@ -431,21 +263,18 @@ export default {
       })
     },
     updateData() {
-      // console.log('ppppppp')
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
-          tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
+          tempData.timestamp = +new Date(tempData.timestamp)
           const index = this.list.findIndex(v => v.title === this.temp.title)
 
-          // this.list.splice(index, 1, this.temp)
           if (this.temp.dialogType === 'importance') {
             this.list[index].importance = this.temp.importance
           }
           if (this.temp.dialogType === 'biji') {
             this.list[index].remark = this.temp.remark
             this.list = this.list.slice()
-            // this.list.splice(index, 1, this.temp)
           }
 
           this.dialogFormVisible = false
@@ -455,8 +284,6 @@ export default {
             type: 'success',
             duration: 2000
           })
-          // updateArticle(tempData).then(() => {
-          // })
         }
       })
     },
@@ -508,7 +335,6 @@ export default {
 
 <style lang="scss" scoped>
   .md-div {
-    // width: 600px;
     height: calc(100vh - 45px);
     overflow: auto;
     padding: 25px;

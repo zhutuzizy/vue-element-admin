@@ -1,12 +1,17 @@
 <template>
   <div class="all">
-    <el-card v-for="item in newList" :key="item.title" class="word-card " :body-style="{ height: '400px', overflow: 'auto' }" shadow="hover">
-      <div slot="header" class="header">
+    <el-card v-for="item in newList" :key="item.title" class="word-card " :body-style="{ height: '460px', overflow: 'auto' }" shadow="hover">
+      <div slot="header" class="header clearfix">
         <pre class="text-container" v-html="item.title" />
+        <el-button class="download" type="text" @click="toDownloadCard(item.title)">下载答题卡</el-button>
+
+        <el-button class="download" type="text" @click="toDownloadFile(item.title)">下载试卷</el-button>
+
+        <el-button class="download" type="text" @click="toViewFile(item.title)">查看试卷</el-button>
       </div>
-      <!-- <pre class="text-container"></pre> -->
-      <!-- <iframe :src="item.path" width="100%" height="600px"></iframe> -->
-      <pdf :src="item.path" />
+
+      <iframe :src="item.path" width="100%" height="600px" />
+      <!-- <pdf :src="item.path" /> -->
     </el-card>
 
     <div v-if="total" class="page">
@@ -25,7 +30,6 @@
 </template>
 
 <script>
-// import { fetchList } from '@/api/article'
 import pdf from 'vue-pdf'
 
 export default {
@@ -56,12 +60,10 @@ export default {
   },
   data() {
     return {
-      // list: [{word: 'kkk'},{word: 'kkk'},{word: 'kkk'},{word: 'kkk'},{word: 'kkk'},{word: 'kkk'},{word: 'kkk'},{word: 'kkk'},{word: 'kkk'}],
       newList: [],
       currentPage: 1,
       loading: false,
       pageSize: 1
-      // pathsss: require('/pdf/2022.06六级真题第1套.pdf')
     }
   },
   watch: {
@@ -75,11 +77,6 @@ export default {
   methods: {
     getList() {
       this.loading = true
-      // this.$emit('create') // for test
-      // fetchList(this.listQuery).then(response => {
-      //   this.list = response.data.items
-      //   this.loading = false
-      // })
       this.newList = this.list.slice(0, this.pageSize)
     },
     handleSizeChange(val) {
@@ -88,27 +85,33 @@ export default {
     handleCurrentChange(val) {
       this.newList = this.list.slice((val - 1) * this.pageSize, val * this.pageSize)
     },
-    toKnow(item) {
-      item.know = true
-      this.$emit('learn')
-      this.$message('添加至已熟悉列表')
-    },
-    toGrasp(item) {
-      item.grasp = true
-      this.$emit('learn')
-      this.$message('添加至已掌握列表')
-    },
-    toForget(item) {
-      if (this.type === 'recite') {
-        item['know'] = false
-        item['grasp'] = false
-        this.$emit('learn')
-        this.$message(`取消已背词`)
-      } else {
-        item[this.type] = false
-        this.$emit('learn')
-        this.$message(`取消已${this.type === 'know' ? '熟悉' : '掌握'}`)
+    toDownloadCard(title) {
+      let tit = '六级答题卡'
+      if (title.includes('四级')) {
+        tit = '四级答题卡'
       }
+      const filePath = `/answer/${encodeURIComponent(tit)}.pdf?t=${Date.now()}`
+      this.fetchData(tit, filePath)
+    },
+    toDownloadFile(title) {
+      const tit = title
+      const filePath = `/pdf/${encodeURIComponent(tit)}.pdf?t=${Date.now()}`
+      this.fetchData(tit, filePath)
+    },
+    toViewFile(title) {
+      const tit = title
+      const filePath = `/pdf/${encodeURIComponent(tit)}.pdf?t=${Date.now()}`
+      window.open(filePath, '_blank')
+    },
+    fetchData(title, filePath) {
+      const fileName = `${title}.pdf` // 下载时的文件名
+      const link = document.createElement('a')
+      link.href = filePath
+      // link.download = fileName // 设置下载的文件名
+      link.setAttribute('download', fileName)
+      document.body.appendChild(link)
+      link.click() // 触发点击下载
+      document.body.removeChild(link) // 移除 <a> 标签
     }
   }
 }
@@ -116,17 +119,11 @@ export default {
 
 <style lang="scss" scoped>
   ::v-deep .el-card__header {
-    // height: calc(100vh - 185px);
-    // overflow: auto;
-    // background: #ccc;
-    // background: rgb(179, 216, 255);
-    // background: rgb(217, 236, 255);
     background: rgb(236, 245, 255);
   }
   .word-card {
     display: inline-block;
     width: 95%;
-    // height: 400px;
     margin-right: 20px;
     margin-bottom: 10px;
   }
@@ -134,6 +131,23 @@ export default {
     text-align: center;
   }
   .text-container {
+    display: inline-block;
+    width: 50%;
     white-space: pre-line;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
+  }
+
+  .download {
+    float: right;
+    margin: 14px 10px;
+    padding: 3px 0;
   }
 </style>
