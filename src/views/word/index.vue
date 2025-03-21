@@ -2,6 +2,7 @@
   <div class="tab-container">
     <el-tabs v-model="activeName" style="" type="border-card">
       <el-tab-pane v-for="item in tabMapOptions" :key="item.key" :label="item.label" :name="item.key">
+        <span v-if="item.label === '单词推荐'" slot="label"><i class="el-icon-star-on" />单词推荐</span>
         <keep-alive>
           <tab-pane v-if="activeName==item.key && activeName=='all'" :type="item.key" :list="allList" :total="allList.length" @learn="learn" />
           <div v-else style="color: #888;">无数据</div>
@@ -40,7 +41,8 @@ export default {
         { label: '未背词', key: 'noRecite' },
         { label: '已背词', key: 'recite' },
         { label: '已熟悉', key: 'know' },
-        { label: '已掌握', key: 'grasp' }
+        { label: '已掌握', key: 'grasp' },
+        { label: '单词推荐', key: 'recommend' }
       ],
       activeName: 'all',
       createdTimes: 0,

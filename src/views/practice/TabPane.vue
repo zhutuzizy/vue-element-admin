@@ -10,9 +10,19 @@
         <el-button class="download" type="text" @click="toViewFile(item.title)">查看试卷</el-button>
       </div>
 
-      <iframe :src="item.path" width="100%" height="600px" />
+      <iframe :src="item.path" width="70%" height="600px" />
       <!-- <pdf :src="item.path" /> -->
+
+      <div class="to-ans">
+        <el-input
+          type="textarea"
+          :autosize="{ minRows: 28, maxRows: 28 }"
+          placeholder="请输入答案"
+          v-model="textarea">
+        </el-input>
+      </div>
     </el-card>
+
 
     <div v-if="total" class="page">
       <el-pagination
@@ -63,7 +73,8 @@ export default {
       newList: [],
       currentPage: 1,
       loading: false,
-      pageSize: 1
+      pageSize: 1,
+      textarea: ''
     }
   },
   watch: {
@@ -149,5 +160,11 @@ export default {
     float: right;
     margin: 14px 10px;
     padding: 3px 0;
+  }
+
+  .to-ans {
+    width: 25%;
+    display: inline-block;
+    margin-left: 20px;
   }
 </style>

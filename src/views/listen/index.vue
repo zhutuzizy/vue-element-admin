@@ -251,7 +251,19 @@ export default {
       this.currentFile = ''
     },
     handleLearn(row, step) {
-      row.status = step
+      // console.log('------', row)
+      const filePath = `/listen/${encodeURIComponent(row.title)}.mp3?t=${Date.now()}`
+      this.fetchData(row.title, filePath)
+    },
+    fetchData(title, filePath) {
+      const fileName = `${title}.mp3` // 下载时的文件名
+      const link = document.createElement('a')
+      link.href = filePath
+      // link.download = fileName // 设置下载的文件名
+      link.setAttribute('download', fileName)
+      document.body.appendChild(link)
+      link.click() // 触发点击下载
+      document.body.removeChild(link) // 移除 <a> 标签
     },
     handleUpdate(row, type) {
       this.temp = Object.assign({}, row)
